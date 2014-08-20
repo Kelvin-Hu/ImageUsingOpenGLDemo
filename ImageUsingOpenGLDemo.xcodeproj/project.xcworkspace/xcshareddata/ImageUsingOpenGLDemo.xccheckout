@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>91A443B1-3770-476C-B2F0-1CB6448D8378</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ImageUsingOpenGLDemo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>5F3923D2-F763-48DF-A8A3-AAC93D6E0A75</key>
+		<string>https://github.com/Kelvin-Hu/ImageUsingOpenGLDemo.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ImageUsingOpenGLDemo.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>5F3923D2-F763-48DF-A8A3-AAC93D6E0A75</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Kelvin-Hu/ImageUsingOpenGLDemo.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>5F3923D2-F763-48DF-A8A3-AAC93D6E0A75</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5F3923D2-F763-48DF-A8A3-AAC93D6E0A75</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ImageUsingOpenGLDemo</string>
+		</dict>
+	</array>
+</dict>
+</plist>

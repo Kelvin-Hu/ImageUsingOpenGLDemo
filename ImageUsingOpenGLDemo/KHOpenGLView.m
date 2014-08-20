@@ -15,10 +15,10 @@ typedef struct {
 }Vertex;
 
 const Vertex Vertices[] = {
-    {{1, -1, 0}, {1, 0, 0, 1}, {1, 0}},
-    {{1, 1, 0}, {0, 1, 0, 1}, {1, 1}},
-    {{-1, 1, 0}, {0, 0, 1, 1}, {0, 1}},
-    {{-1, -1, 0}, {0, 0, 0, 1}, {0, 0}}
+    {{1, -1, 0}, {1, 1, 1, 1}, {1, 0}},
+    {{1, 1, 0}, {1, 1, 1, 1}, {1, 1}},
+    {{-1, 1, 0}, {1, 1, 1, 1}, {0, 1}},
+    {{-1, -1, 0}, {1, 1, 1, 1}, {0, 0}}
 };
 
 const GLubyte Indices[] = {
@@ -185,12 +185,18 @@ const GLubyte Indices[] = {
             fixedWidth *= 2;
         }
     }
+    else {
+        fixedWidth = originalWidth;
+    }
     
     fixedHeight = 1;
     if ((originalHeight !=1) && (originalHeight & (originalHeight - 1))) {
         while (fixedHeight < originalHeight) {
             fixedHeight *= 2;
         }
+    }
+    else {
+        fixedHeight = originalHeight;
     }
 }
 
@@ -207,18 +213,21 @@ const GLubyte Indices[] = {
     size_t width = CGImageGetWidth(image);
     size_t height = CGImageGetHeight(image);
     
+    [self setupFixedSizeOfTextureWithWidth:width height:height];
     
     
-    GLubyte *imageData = (GLubyte *)calloc(width * height * 4, sizeof(GLubyte));
+    GLubyte *imageData = (GLubyte *)calloc(fixedWidth * fixedHeight * 4, sizeof(GLubyte));
     
     
     
-    CGContextRef imageContext = CGBitmapContextCreate(imageData, width, height, 8, width * 4,
+    CGContextRef imageContext = CGBitmapContextCreate(imageData, fixedWidth, fixedHeight, 8, fixedWidth * 4,
                                                       CGImageGetColorSpace(image), (CGBitmapInfo)(kCGImageAlphaPremultipliedLast));
 
+    //CGContextTranslateCTM(imageContext, 0, self.frame.size.height);
+    //CGContextScaleCTM(imageContext, 1.0, -1.0);
     
-    
-    CGContextDrawImage(imageContext, CGRectMake(0, 0, width, height), image);
+    CGContextClearRect(imageContext, CGRectMake(0, 0, fixedWidth, fixedHeight));
+    CGContextDrawImage(imageContext, CGRectMake((fixedWidth-width)/2.0, 0, width, height), image);
     
     CGContextRelease(imageContext);
     
@@ -227,7 +236,8 @@ const GLubyte Indices[] = {
     glBindTexture(GL_TEXTURE_2D, texName);
     
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, fixedWidth, fixedHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
     
     free(imageData);
     return texName;
@@ -247,7 +257,6 @@ const GLubyte Indices[] = {
         [self setupVBOs];
         _texture = [self setupTexture:@"baby.jpg"];
         [self render];
-        
     }
     return self;
 }

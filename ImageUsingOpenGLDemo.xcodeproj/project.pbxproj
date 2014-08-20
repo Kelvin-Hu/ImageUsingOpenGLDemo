@@ -27,6 +27,7 @@
 		84C05B1619A34951007BB374 /* item_powerup_fish.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C05B1519A34951007BB374 /* item_powerup_fish.png */; };
 		84C05B1819A34C7D007BB374 /* baby@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84C05B1719A34C7D007BB374 /* baby@2x.jpg */; };
 		84C05B1E19A44D30007BB374 /* baby.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84C05B1D19A44D30007BB374 /* baby.jpg */; };
+		84C05B2019A4878F007BB374 /* toy.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84C05B1F19A4878F007BB374 /* toy.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		84C05B1519A34951007BB374 /* item_powerup_fish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_powerup_fish.png; sourceTree = "<group>"; };
 		84C05B1719A34C7D007BB374 /* baby@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "baby@2x.jpg"; sourceTree = "<group>"; };
 		84C05B1D19A44D30007BB374 /* baby.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = baby.jpg; sourceTree = "<group>"; };
+		84C05B1F19A4878F007BB374 /* toy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = toy.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				84C05B1119A31C4E007BB374 /* FragmentShader.glsl */,
 				84C05B1719A34C7D007BB374 /* baby@2x.jpg */,
 				84C05AEB19A2F06C007BB374 /* Images.xcassets */,
+				84C05B1F19A4878F007BB374 /* toy.jpg */,
 				84C05B1D19A44D30007BB374 /* baby.jpg */,
 				84C05B1519A34951007BB374 /* item_powerup_fish.png */,
 				84C05AE019A2F06C007BB374 /* Supporting Files */,
@@ -250,6 +253,7 @@
 			files = (
 				84C05AE419A2F06C007BB374 /* InfoPlist.strings in Resources */,
 				84C05B1819A34C7D007BB374 /* baby@2x.jpg in Resources */,
+				84C05B2019A4878F007BB374 /* toy.jpg in Resources */,
 				84C05AEC19A2F06C007BB374 /* Images.xcassets in Resources */,
 				84C05B1219A31C4E007BB374 /* FragmentShader.glsl in Resources */,
 				84C05B1019A31C39007BB374 /* VertexShader.glsl in Resources */,
@@ -472,6 +476,7 @@
 				84C05B0419A2F06C007BB374 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		84C05B0519A2F06C007BB374 /* Build configuration list for PBXNativeTarget "ImageUsingOpenGLDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -480,6 +485,7 @@
 				84C05B0719A2F06C007BB374 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
