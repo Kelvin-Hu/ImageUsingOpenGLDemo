@@ -223,11 +223,11 @@ const GLubyte Indices[] = {
     CGContextRef imageContext = CGBitmapContextCreate(imageData, fixedWidth, fixedHeight, 8, fixedWidth * 4,
                                                       CGImageGetColorSpace(image), (CGBitmapInfo)(kCGImageAlphaPremultipliedLast));
 
-    //CGContextTranslateCTM(imageContext, 0, self.frame.size.height);
-    //CGContextScaleCTM(imageContext, 1.0, -1.0);
+    CGContextTranslateCTM(imageContext, 0, fixedHeight);
+    CGContextScaleCTM(imageContext, 1.0, -1.0);
     
     CGContextClearRect(imageContext, CGRectMake(0, 0, fixedWidth, fixedHeight));
-    CGContextDrawImage(imageContext, CGRectMake((fixedWidth-width)/2.0, 0, width, height), image);
+    CGContextDrawImage(imageContext, CGRectMake((fixedWidth-width)/2.0, (fixedHeight - height)/2.0, width, height), image);
     
     CGContextRelease(imageContext);
     
@@ -255,7 +255,7 @@ const GLubyte Indices[] = {
         [self setupFramebuffer];
         [self compileShaders];
         [self setupVBOs];
-        _texture = [self setupTexture:@"baby.jpg"];
+        _texture = [self setupTexture:@"toy.jpg"];
         [self render];
     }
     return self;
