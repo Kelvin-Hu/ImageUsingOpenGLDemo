@@ -28,6 +28,8 @@
 		84C05B1819A34C7D007BB374 /* baby@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84C05B1719A34C7D007BB374 /* baby@2x.jpg */; };
 		84C05B1E19A44D30007BB374 /* baby.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84C05B1D19A44D30007BB374 /* baby.jpg */; };
 		84C05B2019A4878F007BB374 /* toy.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84C05B1F19A4878F007BB374 /* toy.jpg */; };
+		84C05B2419A59241007BB374 /* KHMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C05B2219A59241007BB374 /* KHMainViewController.m */; };
+		84C05B2519A59241007BB374 /* KHMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C05B2319A59241007BB374 /* KHMainViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,9 @@
 		84C05B1719A34C7D007BB374 /* baby@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "baby@2x.jpg"; sourceTree = "<group>"; };
 		84C05B1D19A44D30007BB374 /* baby.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = baby.jpg; sourceTree = "<group>"; };
 		84C05B1F19A4878F007BB374 /* toy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = toy.jpg; sourceTree = "<group>"; };
+		84C05B2119A59241007BB374 /* KHMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KHMainViewController.h; sourceTree = "<group>"; };
+		84C05B2219A59241007BB374 /* KHMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KHMainViewController.m; sourceTree = "<group>"; };
+		84C05B2319A59241007BB374 /* KHMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KHMainViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +139,9 @@
 				84C05AE919A2F06C007BB374 /* KHAppDelegate.m */,
 				84C05B0819A2F09E007BB374 /* KHOpenGLView.h */,
 				84C05B0919A2F09E007BB374 /* KHOpenGLView.m */,
+				84C05B2119A59241007BB374 /* KHMainViewController.h */,
+				84C05B2219A59241007BB374 /* KHMainViewController.m */,
+				84C05B2319A59241007BB374 /* KHMainViewController.xib */,
 				84C05B0F19A31C39007BB374 /* VertexShader.glsl */,
 				84C05B1119A31C4E007BB374 /* FragmentShader.glsl */,
 				84C05B1719A34C7D007BB374 /* baby@2x.jpg */,
@@ -253,6 +261,7 @@
 			files = (
 				84C05AE419A2F06C007BB374 /* InfoPlist.strings in Resources */,
 				84C05B1819A34C7D007BB374 /* baby@2x.jpg in Resources */,
+				84C05B2519A59241007BB374 /* KHMainViewController.xib in Resources */,
 				84C05B2019A4878F007BB374 /* toy.jpg in Resources */,
 				84C05AEC19A2F06C007BB374 /* Images.xcassets in Resources */,
 				84C05B1219A31C4E007BB374 /* FragmentShader.glsl in Resources */,
@@ -277,6 +286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84C05B2419A59241007BB374 /* KHMainViewController.m in Sources */,
 				84C05AE619A2F06C007BB374 /* main.m in Sources */,
 				84C05B0A19A2F09E007BB374 /* KHOpenGLView.m in Sources */,
 				84C05AEA19A2F06C007BB374 /* KHAppDelegate.m in Sources */,

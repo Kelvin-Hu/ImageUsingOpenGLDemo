@@ -29,6 +29,11 @@
     
     size_t fixedWidth;
     size_t fixedHeight;
+    
 }
+
+-(id) initWithFrame:(CGRect)frame withImage:(UIImage *)image;
+-(void) displayNewPhoto:(UIImage *)image;
+-(void) clean;
 
 @end

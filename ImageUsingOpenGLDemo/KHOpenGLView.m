@@ -152,13 +152,37 @@ const GLubyte Indices[] = {
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
 }
 
+-(void) setupViewport
+{
+    CGPoint origion;
+    size_t viewWidth;
+    size_t viewHeight;
+    
+    float k = fixedWidth / fixedHeight;
+    
+    if (k>=1) {
+        viewWidth = self.frame.size.width;
+        viewHeight = self.frame.size.width / k;
+        origion = CGPointMake(0.0, (self.frame.size.height - viewHeight)/2.0);
+    }
+    else {
+        viewHeight = self.frame.size.height;
+        viewWidth = self.frame.size.height * k;
+        origion = CGPointMake((self.frame.size.width - viewWidth)/2.0, 0.0);
+    }
+    
+    glViewport(origion.x, origion.y, viewWidth, viewHeight);
+}
+
 
 -(void) render
 {
     glClearColor(0, 104.0/255.0, 55.0/255.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
     
-    glViewport(0, 0, self.frame.size.width, self.frame.size.height);
+    //glViewport(0, 0, self.frame.size.width, self.frame.size.height);
+    [self setupViewport];
+    
     
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
@@ -201,12 +225,10 @@ const GLubyte Indices[] = {
 }
 
 
--(GLuint) setupTexture:(NSString *)fileName
+-(GLuint) setupTexture:(CGImageRef)image
 {
-    CGImageRef image = [UIImage imageNamed:fileName].CGImage;
-
     if (!image) {
-        NSLog(@"Failed to load image %@", fileName);
+        NSLog(@"Failed to load image.");
         exit(1);
     }
     
@@ -255,7 +277,8 @@ const GLubyte Indices[] = {
         [self setupFramebuffer];
         [self compileShaders];
         [self setupVBOs];
-        _texture = [self setupTexture:@"toy.jpg"];
+        CGImageRef image = [UIImage imageNamed:@"toy.jpg"].CGImage;
+        _texture = [self setupTexture:image];
         [self render];
     }
     return self;
@@ -265,4 +288,45 @@ const GLubyte Indices[] = {
     _context = nil;
 }
 
+
+//---------------used for outside----------------
+
+-(id)initWithFrame:(CGRect)frame withImage:(UIImage *)image
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setupLayer];
+        [self setupContext];
+        [self setupRenderbuffer];
+        [self setupFramebuffer];
+        [self compileShaders];
+        [self setupVBOs];
+        _texture = [self setupTexture:image.CGImage];
+        [self render];
+    }
+    return self;
+}
+
+-(void)displayNewPhoto:(UIImage *)image
+{
+    _texture = [self setupTexture:image.CGImage];
+    [self render];
+}
+
+-(void)clean
+{
+    glClearColor(0, 104.0/255.0, 55.0/255.0, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT);
+    [_context presentRenderbuffer:GL_RENDERBUFFER];
+}
+
 @end
+
+
+
+
+
+
+
+
+
