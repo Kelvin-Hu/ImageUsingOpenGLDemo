@@ -6,6 +6,7 @@
 //  Copyright (c) 2014年 ___HUSHUHUI___. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
@@ -30,6 +31,10 @@
     size_t fixedWidth;
     size_t fixedHeight;
     
+    float tw;
+    float th;
+    float k;
+    GLuint _textureBuffer;
 }
 
 -(id) initWithFrame:(CGRect)frame withImage:(UIImage *)image;

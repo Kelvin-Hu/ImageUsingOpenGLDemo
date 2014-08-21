@@ -26,6 +26,12 @@ const GLubyte Indices[] = {
     2, 3, 0
 };
 
+typedef struct {
+    float x;
+    float y;
+}Coord;
+
+
 @implementation KHOpenGLView
 
 
@@ -143,13 +149,23 @@ const GLubyte Indices[] = {
 
 -(void) setupVBOs
 {
+    
+    Vertex textArray[] = {
+        {{1, -1, 0}, {1, 1, 1, 1}, {tw, 0}},
+        {{1, 1, 0}, {1, 1, 1, 1}, {tw, th}},
+        {{-1, 1, 0}, {1, 1, 1, 1}, {0, th}},
+        {{-1, -1, 0}, {1, 1, 1, 1}, {0, 0}}
+    };
+    
+    
     glGenBuffers(1, &_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), textArray, GL_STATIC_DRAW);
     
     glGenBuffers(1, &_indexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
+    
 }
 
 -(void) setupViewport
@@ -158,7 +174,8 @@ const GLubyte Indices[] = {
     size_t viewWidth;
     size_t viewHeight;
     
-    float k = fixedWidth / fixedHeight;
+    //float k = fixedWidth / fixedHeight;
+    
     
     if (k>=1) {
         viewWidth = self.frame.size.width;
@@ -237,10 +254,14 @@ const GLubyte Indices[] = {
     
     [self setupFixedSizeOfTextureWithWidth:width height:height];
     
+    while ((fixedWidth >= 2048) || (fixedHeight >= 2048) ) {
+        fixedWidth /= 2;
+        fixedHeight /= 2;
+        width /= 2;
+        height /= 2;
+    }
     
     GLubyte *imageData = (GLubyte *)calloc(fixedWidth * fixedHeight * 4, sizeof(GLubyte));
-    
-    
     
     CGContextRef imageContext = CGBitmapContextCreate(imageData, fixedWidth, fixedHeight, 8, fixedWidth * 4,
                                                       CGImageGetColorSpace(image), (CGBitmapInfo)(kCGImageAlphaPremultipliedLast));
@@ -250,6 +271,55 @@ const GLubyte Indices[] = {
     
     CGContextClearRect(imageContext, CGRectMake(0, 0, fixedWidth, fixedHeight));
     CGContextDrawImage(imageContext, CGRectMake((fixedWidth-width)/2.0, (fixedHeight - height)/2.0, width, height), image);
+    
+    CGContextRelease(imageContext);
+    
+    GLuint texName;
+    glGenTextures(1, &texName);
+    glBindTexture(GL_TEXTURE_2D, texName);
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, fixedWidth, fixedHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
+    
+    free(imageData);
+    return texName;
+}
+
+-(GLuint) modifyTexture:(CGImageRef)image
+{
+    if (!image) {
+        NSLog(@"Failed to load image.");
+        exit(1);
+    }
+    
+    size_t width = CGImageGetWidth(image);
+    size_t height = CGImageGetHeight(image);
+    
+    [self setupFixedSizeOfTextureWithWidth:width height:height];
+    
+    while ((fixedWidth >= 2048) || (fixedHeight >= 2048)) {
+        fixedWidth /= 2;
+        fixedHeight /= 2;
+        width /= 2;
+        height /= 2;
+    }
+    
+    tw = (float)width / (float)fixedWidth;
+    th = (float)height / (float)fixedHeight;
+    k = (float)width / (float)height;
+    
+    
+    GLubyte *imageData = (GLubyte *)calloc(fixedWidth * fixedHeight * 4, sizeof(GLubyte));
+    
+    CGContextRef imageContext = CGBitmapContextCreate(imageData, fixedWidth, fixedHeight, 8, fixedWidth * 4,
+                                                      CGImageGetColorSpace(image), (CGBitmapInfo)(kCGImageAlphaPremultipliedLast));
+    
+    CGContextTranslateCTM(imageContext, 0, fixedHeight);
+    CGContextScaleCTM(imageContext, 1.0, -1.0);
+    
+    CGContextClearRect(imageContext, CGRectMake(0, 0, fixedWidth, fixedHeight));
+    CGContextDrawImage(imageContext, CGRectMake(0, 0, width, height), image);
     
     CGContextRelease(imageContext);
     
@@ -300,8 +370,8 @@ const GLubyte Indices[] = {
         [self setupRenderbuffer];
         [self setupFramebuffer];
         [self compileShaders];
+        _texture = [self modifyTexture:image.CGImage];
         [self setupVBOs];
-        _texture = [self setupTexture:image.CGImage];
         [self render];
     }
     return self;
@@ -309,7 +379,8 @@ const GLubyte Indices[] = {
 
 -(void)displayNewPhoto:(UIImage *)image
 {
-    _texture = [self setupTexture:image.CGImage];
+    _texture = [self modifyTexture:image.CGImage];
+    [self setupVBOs];
     [self render];
 }
 
