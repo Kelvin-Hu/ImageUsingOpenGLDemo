@@ -11,10 +11,11 @@
 #import "KHOpenGLView.h"
 
 @interface KHMainViewController : UIViewController
-                        <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+                        <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIScrollViewDelegate>
 {
     KHOpenGLView  *_glview;
     IBOutlet UIView *plain;
+    IBOutlet UIScrollView *scrollPlain;
 }
 
 @end

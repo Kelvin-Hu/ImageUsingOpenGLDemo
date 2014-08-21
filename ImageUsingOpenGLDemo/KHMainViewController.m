@@ -41,15 +41,26 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     
     if (img) {
         if (!_glview) {
-            _glview = [[KHOpenGLView alloc] initWithFrame:plain.frame withImage:img];
-            [plain addSubview:_glview];
+            _glview = [[KHOpenGLView alloc] initWithFrame:CGRectMake(0, 0, img.size.width, img.size.height) withImage:img];
+            [scrollPlain addSubview:_glview];
+            [scrollPlain setDelegate:self];
+            [scrollPlain setContentSize:img.size];
+            [scrollPlain setMinimumZoomScale:0.3];
+            [scrollPlain setMaximumZoomScale:2.0];
+            
         }
         else {
             [_glview displayNewPhoto:img];
+            [scrollPlain setContentSize:img.size];
         }
     }
     
     [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return _glview;
 }
 
 

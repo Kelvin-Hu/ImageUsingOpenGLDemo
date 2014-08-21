@@ -379,6 +379,7 @@ typedef struct {
 
 -(void)displayNewPhoto:(UIImage *)image
 {
+    [self setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
     _texture = [self modifyTexture:image.CGImage];
     [self setupVBOs];
     [self render];
