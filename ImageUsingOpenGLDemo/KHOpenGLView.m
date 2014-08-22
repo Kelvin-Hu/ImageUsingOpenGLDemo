@@ -189,7 +189,7 @@ typedef struct {
     }
     
     glViewport(origion.x, origion.y, viewWidth, viewHeight);
-}
+    }
 
 
 -(void) render
@@ -197,8 +197,9 @@ typedef struct {
     glClearColor(0, 104.0/255.0, 55.0/255.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
     
-    //glViewport(0, 0, self.frame.size.width, self.frame.size.height);
-    [self setupViewport];
+    glViewport(0, 0, self.frame.size.width, self.frame.size.height);
+    NSLog(@"viewPortWidth=%f, viewPortHeight=%f",self.frame.size.width, self.frame.size.height);
+    //[self setupViewport];
     
     
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
@@ -298,16 +299,20 @@ typedef struct {
     
     [self setupFixedSizeOfTextureWithWidth:width height:height];
     
+    
     while ((fixedWidth >= 2048) || (fixedHeight >= 2048)) {
         fixedWidth /= 2;
         fixedHeight /= 2;
         width /= 2;
         height /= 2;
+        //CGRect rect = CGRectMake(self.frame.origin.x, self.frame.origin.y, width, height);
+        //[self setFrame:rect];
     }
+
+    
     
     tw = (float)width / (float)fixedWidth;
     th = (float)height / (float)fixedHeight;
-    k = (float)width / (float)height;
     
     
     GLubyte *imageData = (GLubyte *)calloc(fixedWidth * fixedHeight * 4, sizeof(GLubyte));
@@ -377,20 +382,6 @@ typedef struct {
     return self;
 }
 
--(void)displayNewPhoto:(UIImage *)image
-{
-    [self setFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
-    _texture = [self modifyTexture:image.CGImage];
-    [self setupVBOs];
-    [self render];
-}
-
--(void)clean
-{
-    glClearColor(0, 104.0/255.0, 55.0/255.0, 1.0);
-    glClear(GL_COLOR_BUFFER_BIT);
-    [_context presentRenderbuffer:GL_RENDERBUFFER];
-}
 
 @end
 

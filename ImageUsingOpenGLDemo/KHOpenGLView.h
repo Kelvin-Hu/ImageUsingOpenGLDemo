@@ -38,7 +38,5 @@
 }
 
 -(id) initWithFrame:(CGRect)frame withImage:(UIImage *)image;
--(void) displayNewPhoto:(UIImage *)image;
--(void) clean;
 
 @end

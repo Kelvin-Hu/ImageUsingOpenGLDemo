@@ -42,16 +42,13 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     if (img) {
         if (!_glview) {
             _glview = [[KHOpenGLView alloc] initWithFrame:CGRectMake(0, 0, img.size.width, img.size.height) withImage:img];
-            [scrollPlain addSubview:_glview];
-            [scrollPlain setDelegate:self];
-            [scrollPlain setContentSize:img.size];
-            [scrollPlain setMinimumZoomScale:0.3];
-            [scrollPlain setMaximumZoomScale:2.0];
+            [self setAutoscale];
             
         }
         else {
-            [_glview displayNewPhoto:img];
-            [scrollPlain setContentSize:img.size];
+            [_glview removeFromSuperview];
+            _glview = [[KHOpenGLView alloc] initWithFrame:CGRectMake(0, 0, img.size.width, img.size.height) withImage:img];
+            [self setAutoscale];
         }
     }
     
@@ -63,10 +60,26 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     return _glview;
 }
 
+-(void)setAutoscale
+{
+    [scrollPlain setDelegate:self];
+    [scrollPlain setBouncesZoom:YES];
+    [scrollPlain addSubview:_glview];
+    [scrollPlain setContentSize:_glview.frame.size];
+    
+    float x_scale = scrollPlain.frame.size.width / _glview.frame.size.width;
+    float y_scale = scrollPlain.frame.size.height / _glview.frame.size.height;
+    float currentScale = x_scale < y_scale ? x_scale : y_scale;
+    
+    [scrollPlain setMinimumZoomScale:currentScale];
+    [scrollPlain setMaximumZoomScale:1.0];
+    [scrollPlain setZoomScale:currentScale];
+}
 
 - (IBAction)clean:(id)sender {
     if (_glview) {
-        [_glview clean];
+        [_glview removeFromSuperview];
+        _glview = nil;
     }
 }
 
