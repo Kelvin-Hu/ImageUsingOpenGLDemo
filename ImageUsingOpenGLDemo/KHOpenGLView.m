@@ -10,15 +10,14 @@
 
 typedef struct {
     float Position[3];
-    float Color[4];
     float TexCoord[2];
 }Vertex;
 
 const Vertex Vertices[] = {
-    {{1, -1, 0}, {1, 1, 1, 1}, {1, 0}},
-    {{1, 1, 0}, {1, 1, 1, 1}, {1, 1}},
-    {{-1, 1, 0}, {1, 1, 1, 1}, {0, 1}},
-    {{-1, -1, 0}, {1, 1, 1, 1}, {0, 0}}
+    {{1, -1, 0}, {1, 0}},
+    {{1, 1, 0}, {1, 1}},
+    {{-1, 1, 0}, {0, 1}},
+    {{-1, -1, 0}, {0, 0}}
 };
 
 const GLubyte Indices[] = {
@@ -137,9 +136,7 @@ typedef struct {
     glUseProgram(programHandle);
     
     _positionSlot = glGetAttribLocation(programHandle, "Position");
-    _colorSlot = glGetAttribLocation(programHandle, "SourceColor");
     glEnableVertexAttribArray(_positionSlot);
-    glEnableVertexAttribArray(_colorSlot);
     
     _textureSlot = glGetAttribLocation(programHandle, "TexCoordIn");
     glEnableVertexAttribArray(_textureSlot);
@@ -151,16 +148,16 @@ typedef struct {
 {
     
     Vertex textArray[] = {
-        {{1, -1, 0}, {1, 1, 1, 1}, {tw, 0}},
-        {{1, 1, 0}, {1, 1, 1, 1}, {tw, th}},
-        {{-1, 1, 0}, {1, 1, 1, 1}, {0, th}},
-        {{-1, -1, 0}, {1, 1, 1, 1}, {0, 0}}
+        {{1, -1, 0}, {tw, 0}},
+        {{1, 1, 0}, {tw, th}},
+        {{-1, 1, 0}, {0, th}},
+        {{-1, -1, 0}, {0, 0}}
     };
     
     
     glGenBuffers(1, &_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), textArray, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), textArray, GL_DYNAMIC_DRAW);
     
     glGenBuffers(1, &_indexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
@@ -198,16 +195,13 @@ typedef struct {
     glClear(GL_COLOR_BUFFER_BIT);
     
     glViewport(0, 0, self.frame.size.width, self.frame.size.height);
-    NSLog(@"viewPortWidth=%f, viewPortHeight=%f",self.frame.size.width, self.frame.size.height);
-    //[self setupViewport];
     
     
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
     
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
-    glVertexAttribPointer(_colorSlot, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid *)(sizeof(float)*3));
-    glVertexAttribPointer(_textureSlot, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*) (sizeof(float) * 7));
+    glVertexAttribPointer(_textureSlot, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*) (sizeof(float) * 3));
     
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _texture);
@@ -381,6 +375,11 @@ typedef struct {
     }
     return self;
 }
+
+//----------------something about the touch-------------
+
+
+
 
 
 @end

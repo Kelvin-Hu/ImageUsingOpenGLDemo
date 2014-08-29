@@ -43,7 +43,6 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         if (!_glview) {
             _glview = [[KHOpenGLView alloc] initWithFrame:CGRectMake(0, 0, img.size.width, img.size.height) withImage:img];
             [self setAutoscale];
-            
         }
         else {
             [_glview removeFromSuperview];
@@ -64,6 +63,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [scrollPlain setDelegate:self];
     [scrollPlain setBouncesZoom:YES];
+    [scrollPlain.panGestureRecognizer setMinimumNumberOfTouches:2];
     [scrollPlain addSubview:_glview];
     [scrollPlain setContentSize:_glview.frame.size];
     
@@ -82,5 +82,9 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         _glview = nil;
     }
 }
+
+
+
+
 
 @end
