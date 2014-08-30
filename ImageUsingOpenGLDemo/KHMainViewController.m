@@ -84,6 +84,13 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 }
 
 
+//------------about UITouch-----------------
+
+
+
+
+
+
 
 
 

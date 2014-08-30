@@ -379,7 +379,29 @@ typedef struct {
 //----------------something about the touch-------------
 
 
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"Touch coordinate is (%f, %f)",[(UITouch *)touches.anyObject locationInView:scrollPlain].x,
+          [(UITouch *)touches.anyObject locationInView:scrollPlain].y);
+}
 
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"Touch coordinate is (%f, %f)",[(UITouch *)touches.anyObject locationInView:scrollPlain].x,
+          [(UITouch *)touches.anyObject locationInView:scrollPlain].y);
+}
+
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"Touch coordinate is (%f, %f)",[(UITouch *)touches.anyObject locationInView:scrollPlain].x,
+          [(UITouch *)touches.anyObject locationInView:scrollPlain].y);
+}
+
+-(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    
+}
 
 
 @end
