@@ -35,10 +35,10 @@
     float th;
     float k;
     GLuint _textureBuffer;
+    
+    __weak UIView *scrollPlain;
 }
 
 -(id) initWithFrame:(CGRect)frame withImage:(UIImage *)image;
--(void) displayNewPhoto:(UIImage *)image;
--(void) clean;
 
 @end
