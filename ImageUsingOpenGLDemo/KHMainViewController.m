@@ -50,6 +50,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
             
         }
         else {
+            NSLog(@"width=%f height=%f",img.size.width,img.size.height);
             [_glview displayNewPhoto:img];
             [scrollPlain setContentSize:img.size];
         }

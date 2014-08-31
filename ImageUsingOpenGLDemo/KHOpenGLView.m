@@ -197,8 +197,8 @@ typedef struct {
     glClearColor(0, 104.0/255.0, 55.0/255.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
     
-    //glViewport(0, 0, self.frame.size.width, self.frame.size.height);
-    [self setupViewport];
+    glViewport(0, 0, self.frame.size.width, self.frame.size.height);
+    //[self setupViewport];
     
     
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
